@@ -1,4 +1,0 @@
-=== Virtual Scientist v0.1 Design Note (Hugo, 2026-09-01) ===
-TASK: Hidden generative law of nature over 2-3 continuous variables plus one hidden categorical regime. Agent sees only experiment queries and noisy observations; must design experiments, form hypotheses, and report the law with calibrated confidence.
-SCORES: (1) law-recovery accuracy on held-out regimes, (2) experiment efficiency (queries to threshold), (3) calibration (Brier score of reported confidence), (4) ontology-revision case where no offered hypothesis class fits.
-BASELINES: random experimenter, naive curve-fitter, greedy confirmatory sampler (decoy), theory-memorizer (pathological control), privileged oracle (regret ceiling). STOP: fixed query budget or accuracy threshold; escalate to Ben if spec ambiguity blocks progress. ACCEPTANCE: metric separates oracle from memorizer; confirmatory decoy does not beat honest information-gain agent.
