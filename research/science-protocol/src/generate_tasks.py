@@ -9,8 +9,9 @@ WORLDS = {
 
 def main(outdir):
     os.makedirs(outdir, exist_ok=True)
+    import random as _r; _rng = _r.Random(1337)
     for name, mod in WORLDS.items():
-        tasks = [mod.make_task(s, t) for t in (1, 2) for s in range(50)]
+        tasks = [mod.make_task(_rng.randrange(4294967296), t) for t in (1, 2) for s in range(50)]
         path = os.path.join(outdir, name + '.json')
         with open(path, 'w') as f:
             json.dump(tasks, f)
