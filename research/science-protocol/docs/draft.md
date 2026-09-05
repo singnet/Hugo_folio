@@ -10,10 +10,10 @@ Measure genuine scientific-inference ability (hidden-law discovery) across six s
 
 ## Anti-cheat (adversarial evaluation)
 Attacks run against the real evaluator, each must stay at/below a predeclared normalized floor of 0.55 (chance=0, oracle=1):
-- *constant*: predicts 0/empty. PASS
-- *copier*: copies last observation of the prefix. PASS (targets no longer in history)
-- *metadata*: hidden fields absent from agent view. PASS
-- *seed match (brute-force)*: regenerates trajectories via public generators across seed space, matches observed initial state, then reads off the target. After the 2^32 seed widening, no matches found => chance-level. PASS (mechanics measured; other worlds rely on same generator discipline)
+- *constant*: predicts 0/empty. Score 0.118. PASS
+- *copier*: copies last observation of the prefix. Score 0.294. PASS (targets no longer in history)
+- *metadata*: hidden fields absent from agent view. Score 0.000. PASS
+- *seed match (brute-force)*: regenerates trajectories via public generators across seed space, matches observed initial state, then reads off the target. After the 2^32 seed widening, no matches found. Score 0.078. PASS (attack runs per-world in evaluate.py via portable generator import)
 
 ## Reproducibility
 Private labels manifest is reproducible from the committed public generators + build_agent_view.py; anticheat.py (schema) and evaluate.py (adversarial floor checks) are committed and runnable from a fresh clone given regenerated data.
