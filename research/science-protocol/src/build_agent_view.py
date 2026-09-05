@@ -21,7 +21,7 @@ for f in sorted(glob.glob(os.path.join(data_dir, '*.json'))):
     for i, t in enumerate(items):
         if not isinstance(t, dict): continue
         tid = hashlib.sha256((world+str(i)+f).encode()).hexdigest()[:16]
-        agent = {k:v for k,v in t.items() if k not in HIDDEN.get(world,[])}
+        agent = {k:v for k,v in t.items() if k not in HIDDEN.get(world,[]) and k != 'seed' and 'seed' not in k.lower()}
         labels = {k:v for k,v in t.items() if k in HIDDEN.get(world,[])}
         tasks.append({'id': tid, 'world': world, 'agent': agent, 'labels': labels, 'src': os.path.basename(f)})
 rng = random.Random(42); rng.shuffle(tasks)
