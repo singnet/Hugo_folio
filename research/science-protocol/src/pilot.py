@@ -60,11 +60,16 @@ def pred_astro(t):
     lc = t['lightcurve']
     mean = sum(lc)/len(lc)
     var = sum((x-mean)**2 for x in lc)/len(lc)
-    # guess mode from variance
-    if var < 0.005: mode = 'flare'
-    elif min(lc) < 0.6: mode = 'spot'
-    else: mode = 'pulsator'
-    return {'mean': mean, 'std': math.sqrt(var), 'mode': mode}
+    std = math.sqrt(var)
+    # min/max excursion relative to std separates modes
+    lo = min(lc); hi = max(lc)
+    if std < 0.01:
+        mode = 'flare'      # low variance: quiet/flare baseline
+    elif hi - lo > 0.8:
+        mode = 'spot'       # deep asymmetric dips
+    else:
+        mode = 'pulsator'   # regular moderate variation
+    return {'mean': mean, 'std': std, 'mode': mode}
 
 def score_astro(t, pred):
     truth = t['params']['mode']
