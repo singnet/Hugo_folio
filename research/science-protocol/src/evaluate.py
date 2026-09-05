@@ -82,8 +82,31 @@ def attack_seed_match(t, m):
     return 1.0  # no match found: chance-level for attack
 
 def main():
+    def attack_corpus_reconstruct(t, m):
+        # run public pipeline with arbitrary seeds; fingerprint-match first obs vs any generated task
+        w = t.get('world')
+        if w not in WORLDS:
+            return 1.0
+        obs0 = _first_obs(t)
+        if obs0 is None:
+            return 1.0
+        try:
+            mod = __import__(w)
+        except Exception:
+            return 1.0
+        import random
+        for s in range(128):
+            try:
+                cand = mod.make_task(random.randrange(4294967296), 1)
+                traj = cand.get('trajectory') or cand.get('history') or cand.get('readings') or cand.get('lightcurve')
+                if traj and traj[0] == obs0:
+                    return 0.0
+            except Exception:
+                continue
+        return 1.0
     attacks = {'constant': attack_constant, 'copier': attack_copier,
-               'metadata': attack_metadata, 'seed_match': attack_seed_match}
+               'metadata': attack_metadata, 'seed_match': attack_seed_match,
+               'corpus_reconstruct': attack_corpus_reconstruct}
     results = {a: [] for a in attacks}
     for split in ('dev', 'test'):
         for line in open(os.path.join(av, split + '.jsonl')):
