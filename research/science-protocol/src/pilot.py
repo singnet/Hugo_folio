@@ -48,7 +48,14 @@ def score_chem(t, pred):
     return sum(abs(truth[e]-pred.get(e,0)) for e in truth)
 
 def pred_gene(t):
-    return t['history'][-2]
+    # majority rule over last 5 steps: predict gene state per gene
+    hist = t['history'][-5:]
+    pred = {}
+    genes = list(hist[-1].keys())
+    for g in genes:
+        votes = [h[g] for h in hist if g in h]
+        pred[g] = 1 if sum(votes) > len(votes)/2 else 0
+    return pred
 
 def score_gene(t, pred):
     truth = t['history'][-1]
