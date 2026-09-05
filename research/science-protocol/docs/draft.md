@@ -13,7 +13,7 @@ Attacks run against the real evaluator, each must stay at/below a predeclared no
 - *constant*: predicts 0/empty. Score 0.118. PASS
 - *copier*: copies last observation of the prefix. Score 0.294. PASS (targets no longer in history)
 - *metadata*: hidden fields absent from agent view. Score 0.000. PASS
-- *seed match (brute-force)*: regenerates trajectories via public generators across seed space, matches observed initial state, then reads off the target. After the 2^32 seed widening, no matches found. Score 0.078. PASS (attack runs per-world in evaluate.py via portable generator import)
+- *seed match (brute-force)*: regenerates trajectories via public generators across seed space, matches observed initial state, then reads off the target. With 128-bit HMAC-derived seeds no matches are expected; measured score 0.114. PASS (attack runs per-world in evaluate.py via portable generator import)
 
 ## Reproducibility
 Reproducibility: the corpus derives from committed generators + build_agent_view.py plus the private master seed, whose SHA-256 commitment (master_seed.sha256) is public. A clean clone can verify the commitment and code, but evaluator scores require the private manifest; docs/provenance.json records manifest hash, seed commitment, commit, and attack outputs.

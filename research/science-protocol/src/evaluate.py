@@ -84,7 +84,7 @@ def attack_seed_match(t, m):
 
 def main():
     def attack_corpus_reconstruct(t, m):
-        # full-pipeline attack: regenerate candidate corpora from arbitrary master seeds via HMAC derivation, both tiers, and fingerprint-match the task
+        # bounded random-master attack: 64 random masters x 8 task indices via HMAC derivation, fingerprint on first observation
         import hashlib, hmac, random
         w = t.get('world')
         if w not in WORLDS:
