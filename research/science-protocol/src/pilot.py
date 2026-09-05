@@ -8,8 +8,27 @@ def score_mech(t, pred):
 
 def pred_mech(t):
     traj = t['trajectory']
-    p0, p1 = traj[-2], traj[-1]
-    return [2*b-a for a,b in zip(p0[0],p1[0])]
+    pts = [row[0] for row in traj]
+    m = 10
+    seg = pts[-m:]
+    pred = []
+    for d in range(len(pts[0])):
+        ys = [p_[d] for p_ in seg]
+        S = [sum(x**k for x in range(m)) for k in range(5)]
+        T = [sum(ys[x]*x**k for x in range(m)) for k in range(3)]
+        A = [[S[0],S[1],S[2]],[S[1],S[2],S[3]],[S[2],S[3],S[4]]]
+        for i in range(3):
+            pv = A[i][i]
+            for j in range(i,3): A[i][j] /= pv
+            T[i] /= pv
+            for r2 in range(3):
+                if r2 != i and A[r2][i] != 0:
+                    f = A[r2][i]
+                    for j in range(i,3): A[r2][j] -= f*A[i][j]
+                    T[r2] -= f*T[i]
+        a0,a1,a2 = T
+        pred.append(a0 + a1*m + a2*m*m)
+    return pred
 
 def pred_eco(t):
     hist = t['history']; n = len(t['species'])
