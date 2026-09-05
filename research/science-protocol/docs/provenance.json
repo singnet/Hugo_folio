@@ -1,0 +1,7 @@
+{
+  "manifest_sha256": "2edc4190263f548fae19ae68ce60d40821036d069987033799888f28afcf663a",
+  "master_seed_sha256": "9035854f11fd821318f78a9b492ab1891c923df99c4351d262495be26be58277",
+  "commit": "b41bec583bd27cfbc029e7a8d5432c1b6c83d41e",
+  "command": "python3 src/evaluate.py .",
+  "attack_outputs": "constant: normalized_score=0.128 (floor 0.55) PASS\ncopier: normalized_score=0.311 (floor 0.55) PASS\nmetadata: normalized_score=0.000 (floor 0.55) PASS\nseed_match: normalized_score=0.114 (floor 0.55) PASS\ncorpus_reconstruct: normalized_score=0.283 (floor 0.55) PASS"
+}
