@@ -25,3 +25,5 @@ Per-world normalized scores: 0=chance baseline, 1=oracle. Attack scores at/below
 - Extend brute-force seed attack to all six worlds.
 - Baseline agents (curve-fit, LLM, hybrid) on dev/test.
 - Report per-world normalized scores in final write-up (due Monday).
+- Baselines: naive curve-fit extrapolation scores 0.283 normalized on dev (n=75 target-bearing tasks), well below attack floor context; LLM baseline TBD.
+- Baselines on dev (n=75 target-bearing tasks): last-value 0.944, curve-fit extrapolation 0.283; LLM baseline TBD.

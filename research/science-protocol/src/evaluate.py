@@ -68,9 +68,10 @@ def attack_seed_match(t, m):
         return 1.0
     import random
     tgt = target_of(m)
+    tier = m.get('tier', t.get('tier', 1))
     for s in list(range(64)) + [random.randrange(4294967296) for _ in range(64)]:
         try:
-            cand = mod.make_task(s, 1)
+            cand = mod.make_task(s, tier)
             traj = cand.get('trajectory') or cand.get('history') or cand.get('readings') or cand.get('lightcurve')
             if traj and traj[0] == obs0:
                 pred = traj[-1]
@@ -83,7 +84,8 @@ def attack_seed_match(t, m):
 
 def main():
     def attack_corpus_reconstruct(t, m):
-        # run public pipeline with arbitrary seeds; fingerprint-match first obs vs any generated task
+        # full-pipeline attack: regenerate candidate corpora from arbitrary master seeds via HMAC derivation, both tiers, and fingerprint-match the task
+        import hashlib, hmac, random
         w = t.get('world')
         if w not in WORLDS:
             return 1.0
@@ -94,15 +96,19 @@ def main():
             mod = __import__(w)
         except Exception:
             return 1.0
-        import random
-        for s in range(128):
-            try:
-                cand = mod.make_task(random.randrange(4294967296), 1)
-                traj = cand.get('trajectory') or cand.get('history') or cand.get('readings') or cand.get('lightcurve')
-                if traj and traj[0] == obs0:
-                    return 0.0
-            except Exception:
-                continue
+        tier = t.get('tier', m.get('tier', 1))
+        for k in range(64):
+            master = os.urandom(32)
+            for s in range(8):
+                tag = ('%s:%d:%d' % (w, tier, s)).encode()
+                seed = int.from_bytes(hmac.new(master, tag, hashlib.sha256).digest()[:16], 'big')
+                try:
+                    cand = mod.make_task(seed, tier)
+                    traj = cand.get('trajectory') or cand.get('history') or cand.get('readings') or cand.get('lightcurve')
+                    if traj and traj[0] == obs0:
+                        return 0.0
+                except Exception:
+                    continue
         return 1.0
     attacks = {'constant': attack_constant, 'copier': attack_copier,
                'metadata': attack_metadata, 'seed_match': attack_seed_match,

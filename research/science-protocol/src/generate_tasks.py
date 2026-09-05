@@ -13,7 +13,7 @@ def derive_seeds():
         for t in (1, 2):
             for s in range(50):
                 tag = ('%s:%d:%d' % (name, t, s)).encode()
-                out[(name, t, s)] = int.from_bytes(hmac.new(master, tag, hashlib.sha256).digest()[:4], 'big')
+                out[(name, t, s)] = int.from_bytes(hmac.new(master, tag, hashlib.sha256).digest()[:16], 'big')
     return out
 
 def main(outdir):
