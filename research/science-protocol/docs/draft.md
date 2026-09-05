@@ -5,7 +5,7 @@ Measure genuine scientific-inference ability (hidden-law discovery) across six s
 
 ## Dataset
 - 600 tasks (100/world), splits 420/90/90 train/dev/test, shuffled with fixed RNG.
-- Seeds drawn from 2^32 space (not 0-49) after the brute-force seed-match attack scored 1.000 against enumerable seeds; regeneration is now infeasible for attackers.
+- Seeds are 128-bit, HMAC-SHA256-derived from a private master seed; a public SHA-256 commitment (master_seed.sha256) is committed so the corpus cannot be silently swapped.
 - Agent view: id, world, predict_at, observable fields only. Seed keys and hidden fields (law/rules/pos/signs/reg/params/layers) stripped; targets removed from history (prefix ends before predict_at).
 
 ## Anti-cheat (adversarial evaluation)
@@ -16,13 +16,13 @@ Attacks run against the real evaluator, each must stay at/below a predeclared no
 - *seed match (brute-force)*: regenerates trajectories via public generators across seed space, matches observed initial state, then reads off the target. After the 2^32 seed widening, no matches found. Score 0.078. PASS (attack runs per-world in evaluate.py via portable generator import)
 
 ## Reproducibility
-Private labels manifest is reproducible from the committed public generators + build_agent_view.py; anticheat.py (schema) and evaluate.py (adversarial floor checks) are committed and runnable from a fresh clone given regenerated data.
+Reproducibility: the corpus derives from committed generators + build_agent_view.py plus the private master seed, whose SHA-256 commitment (master_seed.sha256) is public. A clean clone can verify the commitment and code, but evaluator scores require the private manifest; docs/provenance.json records manifest hash, seed commitment, commit, and attack outputs.
 
 ## Scoring
 Per-world normalized scores: 0=chance baseline, 1=oracle. Attack scores at/below floor confirm tasks cannot be solved without inferring the hidden law.
 
 ## Next steps
-- Extend brute-force seed attack to all six worlds.
+- Clarify that attack_corpus_reconstruct is a bounded random-master attack (64 random masters x 8 task indices, fingerprint on first observation), not an exhaustive full-corpus reconstruction; optionally extend to full candidate-corpus fingerprinting.
 - Baseline agents (curve-fit, LLM, hybrid) on dev/test.
 - Report per-world normalized scores in final write-up (due Monday).
 - Baselines: naive curve-fit extrapolation scores 0.283 normalized on dev (n=75 target-bearing tasks), well below attack floor context; LLM baseline TBD.
