@@ -1,1 +1,122 @@
-# F09 successor: frozen, immutable, append-only trace records for register transitions.\n# Hash function: sha256, hex digest (unchanged from 1addf86).\n# Canonical payload serialization: UTF-8 JSON, sorted keys, no whitespace, separators minimal,\n# excluding volatile metadata, including schema_version.\n# Typed-edge vocabulary (parent link kinds): data, control-trigger, hypothesis-lineage, re-attribution.\n# Immutability: every event is frozen recursively (MappingProxyType over frozen dicts, tuples for sequences);\n# Trace exposes events only as a read-only tuple property, so replacement/removal is rejected.\nimport json, hashlib, time\nfrom types import MappingProxyType\n\nSCHEMA_VERSION = \"f09.v2\"\nEDGES = (\"data\", \"control-trigger\", \"hypothesis-lineage\", \"re-attribution\")\n\ndef freeze(obj):\n    if isinstance(obj, dict):\n        return MappingProxyType({k: freeze(v) for k, v in obj.items()})\n    if isinstance(obj, (list, tuple)):\n        return tuple(freeze(v) for v in obj)\n    return obj\n\ndef plain(obj):\n    if isinstance(obj, MappingProxyType):\n        return {k: plain(v) for k, v in obj.items()}\n    if isinstance(obj, tuple):\n        return [plain(v) for v in obj]\n    return obj\n\ndef canonical_bytes(payload):\n    body = {k: v for k, v in payload.items() if k != \"volatile_metadata\"}\n    return json.dumps(plain(body), sort_keys=True, separators=(\",\", \":\"), ensure_ascii=False).encode(\"utf-8\")\n\ndef payload_hash(payload):\n    return hashlib.sha256(canonical_bytes(payload)).hexdigest()\n\nclass Trace:\n    def __init__(self):\n        self._events = []\n\n    def append(self, transition_id, payload, parents=(), volatile=None):\n        for _, kind in parents:\n            assert kind in EDGES, kind\n        ev = freeze({\n            \"transition_id\": transition_id,\n            \"payload\": payload,\n            \"parents\": list(parents),\n            \"volatile_metadata\": volatile if volatile is not None else {\"timestamp\": time.time()},\n        })\n        self._events.append(ev)\n        return ev\n\n    @property\n    def events(self):\n        return tuple(self._events)\n\n    def replay(self):\n        return self.events\n\ndef re_attribute(trace, original, new_id, payload, volatile=None):\n    before_bytes = canonical_bytes(original[\"payload\"])\n    before_hash = payload_hash(original[\"payload\"])\n    ev = trace.append(new_id, payload, parents=[(original[\"transition_id\"], \"re-attribution\")], volatile=volatile)\n    assert canonical_bytes(original[\"payload\"]) == before_bytes\n    assert payload_hash(original[\"payload\"]) == before_hash\n    return ev\n\ndef expect_rejected(fn):\n    try:\n        fn()\n    except (TypeError, AttributeError):\n        return True\n    raise AssertionError(\"mutation was not rejected\")\n\ndef test_f09_frozen_successor():\n    trace = Trace()\n    failed = trace.append(\n        \"T1\",\n        {\"schema_version\": SCHEMA_VERSION, \"invariant\": \"register\", \"attempted_change\": {\"lane\": \"default\"},\n         \"result\": \"failure\", \"failure_reason\": \"non-finite value\"},\n        parents=[(\"D0\", \"data\")],\n        volatile={\"timestamp\": 100.0},\n    )\n    prefix = trace.replay()\n    ev = re_attribute(\n        trace, failed, \"T2\",\n        {\"schema_version\": SCHEMA_VERSION, \"invariant\": \"register\",\n         \"attempted_change\": {\"reason\": \"diagnosis revision\"}, \"result\": \"success\"},\n        volatile={\"timestamp\": 200.0},\n    )\n    replayed = trace.replay()\n    assert replayed[:len(prefix)] == prefix\n    assert len(replayed) == len(prefix) + 1\n    assert replayed[0] is failed\n    assert (\"T1\", \"re-attribution\") in replayed[-1][\"parents\"]\n    assert failed[\"volatile_metadata\"][\"timestamp\"] != ev[\"volatile_metadata\"][\"timestamp\"]\n    a = {\"schema_version\": SCHEMA_VERSION, \"invariant\": \"register\", \"result\": \"failure\", \"failure_reason\": \"x\"}\n    b = {\"failure_reason\": \"x\", \"result\": \"failure\", \"invariant\": \"register\", \"schema_version\": SCHEMA_VERSION}\n    assert payload_hash(a) == payload_hash(b)\n    c = dict(a)\n    c[\"volatile_metadata\"] = {\"timestamp\": 999.9}\n    assert payload_hash(c) == payload_hash(a)\n\n    # Successor invariant: events cannot be rewritten.\n    stored_bytes = canonical_bytes(failed[\"payload\"])\n    stored_hash = payload_hash(failed[\"payload\"])\n    expect_rejected(lambda: failed[\"payload\"].__setitem__(\"result\", \"tampered\"))\n    expect_rejected(lambda: failed[\"payload\"][\"attempted_change\"].__setitem__(\"lane\", \"x\"))\n    expect_rejected(lambda: failed[\"payload\"].__delitem__(\"failure_reason\"))\n    expect_rejected(lambda: failed[\"parents\"].append((\"X\", \"data\")))\n    # Replacement/removal from the trace is rejected.\n    events = trace.events\n    expect_rejected(lambda: events.__setitem__(0, None))\n    expect_rejected(lambda: events.__delitem__(0))\n    expect_rejected(lambda: trace.events.append(\"T3\"))\n    expect_rejected(lambda: setattr(trace, \"events\", []))\n    # Stored canonical bytes/hash remain unchanged after all rejected attempts.\n    assert canonical_bytes(failed[\"payload\"]) == stored_bytes\n    assert payload_hash(failed[\"payload\"]) == stored_hash\n    assert trace.replay() == replayed\n    print(\"f09 frozen successor passed: recursive freeze, mutation and replacement/removal rejected, stored bytes/hash unchanged; prior acceptance points (schema_version in, volatile out, prefix-preserving replay, key-order-insensitive sha256) all hold\")\n\nif __name__ == \"__main__\":\n    test_f09_frozen_successor()
+# F09 successor: frozen, immutable, append-only trace records.
+# Hash: sha256 hex. Canonical payload: UTF-8 JSON, sorted keys, no whitespace,
+# excluding volatile metadata, including schema_version.
+# Typed edges: data, control-trigger, hypothesis-lineage, re-attribution.
+import json, hashlib, time
+from types import MappingProxyType
+
+SCHEMA_VERSION = "f09.v2"
+EDGES = ("data", "control-trigger", "hypothesis-lineage", "re-attribution")
+
+def freeze(obj):
+    if isinstance(obj, dict):
+        return MappingProxyType(dict((k, freeze(v)) for k, v in obj.items()))
+    if isinstance(obj, (list, tuple)):
+        return tuple(freeze(v) for v in obj)
+    return obj
+
+def plain(obj):
+    if isinstance(obj, (dict, MappingProxyType)):
+        return dict((k, plain(v)) for k, v in obj.items())
+    if isinstance(obj, tuple):
+        return [plain(v) for v in obj]
+    return obj
+
+def canonical_bytes(payload):
+    body = dict((k, v) for k, v in payload.items() if k != "volatile_metadata")
+    return json.dumps(plain(body), sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+
+def payload_hash(payload):
+    return hashlib.sha256(canonical_bytes(payload)).hexdigest()
+
+class Trace:
+    def __init__(self):
+        self.__events = ()
+
+    @property
+    def _events(self):
+        return self.__events
+
+    @property
+    def events(self):
+        return self.__events
+
+    def append(self, transition_id, payload, parents=(), volatile=None):
+        for p in parents:
+            assert p[1] in EDGES, p[1]
+        ev = freeze({
+            "transition_id": transition_id,
+            "payload": payload,
+            "parents": list(parents),
+            "volatile_metadata": volatile if volatile is not None else {"timestamp": time.time()},
+        })
+        self.__events = self.__events + (ev,)
+        return ev
+
+    def replay(self):
+        return self.events
+
+def re_attribute(trace, original, new_id, payload, volatile=None):
+    before_bytes = canonical_bytes(original["payload"])
+    before_hash = payload_hash(original["payload"])
+    ev = trace.append(new_id, payload, parents=[(original["transition_id"], "re-attribution")], volatile=volatile)
+    assert canonical_bytes(original["payload"]) == before_bytes
+    assert payload_hash(original["payload"]) == before_hash
+    return ev
+
+def expect_rejected(fn):
+    try:
+        fn()
+    except (TypeError, AttributeError):
+        return True
+    raise AssertionError("mutation was not rejected")
+
+def test_f09_frozen_successor():
+    trace = Trace()
+    failed = trace.append(
+        "T1",
+        {"schema_version": SCHEMA_VERSION, "invariant": "register", "attempted_change": {"lane": "default"},
+         "result": "failure", "failure_reason": "non-finite value"},
+        parents=[("D0", "data")],
+        volatile={"timestamp": 100.0},
+    )
+    prefix = trace.replay()
+    ev = re_attribute(
+        trace, failed, "T2",
+        {"schema_version": SCHEMA_VERSION, "invariant": "register",
+         "attempted_change": {"reason": "diagnosis revision"}, "result": "success"},
+        volatile={"timestamp": 200.0},
+    )
+    replayed = trace.replay()
+    assert replayed[:len(prefix)] == prefix
+    assert len(replayed) == len(prefix) + 1
+    assert replayed[0] is failed
+    assert ("T1", "re-attribution") in replayed[-1]["parents"]
+    assert failed["volatile_metadata"]["timestamp"] != ev["volatile_metadata"]["timestamp"]
+    a = {"schema_version": SCHEMA_VERSION, "invariant": "register", "result": "failure", "failure_reason": "x"}
+    b = {"failure_reason": "x", "result": "failure", "invariant": "register", "schema_version": SCHEMA_VERSION}
+    assert payload_hash(a) == payload_hash(b)
+    c = dict(a)
+    c["volatile_metadata"] = {"timestamp": 999.9}
+    assert payload_hash(c) == payload_hash(a)
+
+    stored_bytes = canonical_bytes(failed["payload"])
+    stored_hash = payload_hash(failed["payload"])
+    expect_rejected(lambda: failed["payload"].__setitem__("result", "tampered"))
+    expect_rejected(lambda: failed["payload"]["attempted_change"].__setitem__("lane", "x"))
+    expect_rejected(lambda: failed["payload"].__delitem__("failure_reason"))
+    expect_rejected(lambda: failed["parents"].append(("X", "data")))
+    events = trace.events
+    expect_rejected(lambda: events.__setitem__(0, None))
+    expect_rejected(lambda: events.__delitem__(0))
+    expect_rejected(lambda: trace.events.append("T3"))
+    expect_rejected(lambda: trace._events.append("T4"))
+    expect_rejected(lambda: setattr(trace, "events", []))
+    expect_rejected(lambda: setattr(trace, "_events", []))
+    assert canonical_bytes(failed["payload"]) == stored_bytes
+    assert payload_hash(failed["payload"]) == stored_hash
+    assert trace.replay() == replayed
+    print("f09 frozen successor passed: real newlines, recursive freeze, backing tuple read-only, mutation and replacement/removal rejected, stored bytes/hash unchanged; schema_version in, volatile out, prefix-preserving replay, key-order-insensitive sha256 all hold")
+
+if __name__ == "__main__":
+    test_f09_frozen_successor()
