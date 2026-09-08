@@ -1,1 +1,70 @@
-import math\n\ndef scan(val, path):\n    if isinstance(val, bool):\n        return []\n    if isinstance(val, float):\n        if math.isnan(val):\n            return [(path, val, "nan")]\n        if val == math.inf:\n            return [(path, val, "+inf")]\n        if val == -math.inf:\n            return [(path, val, "-inf")]\n        return []\n    if isinstance(val, list):\n        out = []\n        for i, v in enumerate(val):\n            out += scan(v, path + "[" + str(i) + "]")\n        return out\n    if isinstance(val, dict):\n        out = []\n        for k, v in val.items():\n            out += scan(v, path + "." + k)\n        return out\n    return []\n\ndef validate(instance, append_failure, lane_assign, scorer):\n    triggers = scan(instance, "root")\n    if triggers:\n        path, val, kind = triggers[0]\n        append_failure(path, kind)\n        return False\n    lane_assign(instance)\n    scorer(instance)\n    return True\n\ndef test_f08():\n    lane_calls = scorer_calls = 0\n    failures = []\n    state = {}\n\n    def lane(x):\n        nonlocal lane_calls\n        lane_calls += 1\n        state[id(x)] = "lane"\n\n    def scorer(x):\n        nonlocal scorer_calls\n        scorer_calls += 1\n\n    def fail(p, k):\n        failures.append((p, k))\n\n    cases = {\n        "cand_loss": {"candidates": [{}, {}, {"metrics": {"loss": float("inf")}}]},\n        "nested_array": {"l": [1.0, [float("nan"), [2.0, [float("inf")]]]]},\n        "nan": {"m": float("nan")},\n        "mixed_inf": {"p": math.inf, "n": -math.inf},\n        "good": {"m": 1.5},\n    }\n    for name, case in cases.items():\n        ok = validate(case, fail, lane, scorer)\n        assert ok == (name == "good"), name\n    assert lane_calls == 1 and scorer_calls == 1\n    assert len(failures) == 4\n    assert failures[0] == ("root.candidates[2].metrics.loss", "+inf")\n    assert id(cases["cand_loss"]) not in state\n    print("f08 tests passed: 4 failures recorded, lane/scorer invoked once (good only)")\n\nif __name__ == "__main__":\n    test_f08()
+import math
+
+def scan(val, path):
+    if isinstance(val, bool):
+        return []
+    if isinstance(val, float):
+        if math.isnan(val):
+            return [(path, val, "nan")]
+        if val == math.inf:
+            return [(path, val, "+inf")]
+        if val == -math.inf:
+            return [(path, val, "-inf")]
+        return []
+    if isinstance(val, list):
+        out = []
+        for i, v in enumerate(val):
+            out += scan(v, path + "[" + str(i) + "]")
+        return out
+    if isinstance(val, dict):
+        out = []
+        for k, v in val.items():
+            out += scan(v, path + "." + k)
+        return out
+    return []
+
+def validate(instance, append_failure, lane_assign, scorer):
+    triggers = scan(instance, "root")
+    if triggers:
+        path, val, kind = triggers[0]
+        append_failure(path, kind)
+        return False
+    lane_assign(instance)
+    scorer(instance)
+    return True
+
+def test_f08():
+    lane_calls = scorer_calls = 0
+    failures = []
+    state = {}
+
+    def lane(x):
+        nonlocal lane_calls
+        lane_calls += 1
+        state[id(x)] = "lane"
+
+    def scorer(x):
+        nonlocal scorer_calls
+        scorer_calls += 1
+
+    def fail(p, k):
+        failures.append((p, k))
+
+    cases = {
+        "cand_loss": {"candidates": [{}, {}, {"metrics": {"loss": float("inf")}}]},
+        "nested_array": {"l": [1.0, [float("nan"), [2.0, [float("inf")]]]]},
+        "nan": {"m": float("nan")},
+        "mixed_inf": {"p": math.inf, "n": -math.inf},
+        "good": {"m": 1.5},
+    }
+    for name, case in cases.items():
+        ok = validate(case, fail, lane, scorer)
+        assert ok == (name == "good"), name
+    assert lane_calls == 1 and scorer_calls == 1
+    assert len(failures) == 4
+    assert failures[0] == ("root.candidates[2].metrics.loss", "+inf")
+    assert id(cases["cand_loss"]) not in state
+    print("f08 tests passed: 4 failures recorded, lane/scorer invoked once (good only)")
+
+if __name__ == "__main__":
+    test_f08()
