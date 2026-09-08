@@ -1,15 +1,19 @@
-# F09 successor: frozen, immutable, append-only trace records.
+# F09 v3: frozen, immutable, append-only trace records.
 # Hash: sha256 hex. Canonical payload: UTF-8 JSON, sorted keys, no whitespace,
 # excluding volatile metadata, including schema_version.
 # Typed edges: data, control-trigger, hypothesis-lineage, re-attribution.
+# Trace guarding: __slots__ plus __setattr__/__delattr__ that always reject,
+# so the backing binding cannot be replaced or removed via normal Python
+# assignment, including the mangled _Trace__events name. The only internal
+# mutation path is append(), which uses object.__setattr__ under the guard.
 import json, hashlib, time
 from types import MappingProxyType
 
-SCHEMA_VERSION = "f09.v2"
+SCHEMA_VERSION = "f09.v3"
 EDGES = ("data", "control-trigger", "hypothesis-lineage", "re-attribution")
 
 def freeze(obj):
-    if isinstance(obj, dict):
+    if isinstance(obj, (dict, MappingProxyType)):
         return MappingProxyType(dict((k, freeze(v)) for k, v in obj.items()))
     if isinstance(obj, (list, tuple)):
         return tuple(freeze(v) for v in obj)
@@ -30,8 +34,16 @@ def payload_hash(payload):
     return hashlib.sha256(canonical_bytes(payload)).hexdigest()
 
 class Trace:
+    __slots__ = ("__events",)
+
     def __init__(self):
-        self.__events = ()
+        object.__setattr__(self, "_Trace__events", ())
+
+    def __setattr__(self, name, value):
+        raise AttributeError("Trace attributes are read-only")
+
+    def __delattr__(self, name):
+        raise AttributeError("Trace attributes cannot be deleted")
 
     @property
     def _events(self):
@@ -50,7 +62,7 @@ class Trace:
             "parents": list(parents),
             "volatile_metadata": volatile if volatile is not None else {"timestamp": time.time()},
         })
-        self.__events = self.__events + (ev,)
+        object.__setattr__(self, "_Trace__events", self.__events + (ev,))
         return ev
 
     def replay(self):
@@ -111,12 +123,18 @@ def test_f09_frozen_successor():
     expect_rejected(lambda: events.__delitem__(0))
     expect_rejected(lambda: trace.events.append("T3"))
     expect_rejected(lambda: trace._events.append("T4"))
-    expect_rejected(lambda: setattr(trace, "events", []))
-    expect_rejected(lambda: setattr(trace, "_events", []))
+    # guarded binding: replacement and deletion rejected, including the mangled name
+    expect_rejected(lambda: setattr(trace, "_Trace__events", ()))
+    expect_rejected(lambda: setattr(trace, "_Trace__events", None))
+    expect_rejected(lambda: delattr(trace, "_Trace__events"))
+    expect_rejected(lambda: setattr(trace, "events", ()))
+    expect_rejected(lambda: setattr(trace, "_events", ()))
+    expect_rejected(lambda: setattr(trace, "anything", 1))
+    assert len(trace.replay()) == len(replayed)
+    assert trace.replay() == replayed
     assert canonical_bytes(failed["payload"]) == stored_bytes
     assert payload_hash(failed["payload"]) == stored_hash
-    assert trace.replay() == replayed
-    print("f09 frozen successor passed: real newlines, recursive freeze, backing tuple read-only, mutation and replacement/removal rejected, stored bytes/hash unchanged; schema_version in, volatile out, prefix-preserving replay, key-order-insensitive sha256 all hold")
+    print("f09 v3 passed: guarded __setattr__/slots design, mangled binding replacement and deletion rejected, replay length and hashes intact; schema_version in, volatile out, prefix-preserving replay, key-order-insensitive sha256 all hold")
 
 if __name__ == "__main__":
     test_f09_frozen_successor()
