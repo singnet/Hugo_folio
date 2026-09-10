@@ -101,7 +101,7 @@ class Witness:
     def receive(self, checkpoint_msg, registry):
         verify_checkpoint(checkpoint_msg, registry)  # reject forged checkpoints
         cp = checkpoint_msg['checkpoint']
-        blob = canon(cp)
+        blob = canon({'checkpoint': cp, 'writer_key_id': checkpoint_msg['writer_key_id'], 'writer_sig': checkpoint_msg['sig']})
         r = {'checkpoint': cp, 'witness_key_id': self.sig.key_id,
              'writer_key_id': checkpoint_msg['writer_key_id'],
              'writer_sig': checkpoint_msg['sig'],  # preserve signed envelope
@@ -123,7 +123,7 @@ def verify_checkpoint(cp_msg, registry):
     return True
 
 def verify_receipt(r, witness_pub):
-    blob = canon(r['checkpoint'])
+    blob = canon({'checkpoint': r['checkpoint'], 'writer_key_id': r['writer_key_id'], 'writer_sig': r['writer_sig']})
     Sig('v', GENESIS_SEED).verify(blob, r['receipt_sig'], witness_pub)
     return True
 
