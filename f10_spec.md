@@ -50,3 +50,13 @@ universal visibility, and not Byzantine safety by itself. One honest,
 independently queryable witness suffices to expose a later conflicting
 checkpoint *to parties who compare*. Stronger non-equivocation requires
 multiple witnesses/gossip or a transparency-log consistency protocol.
+
+## Clarifications (round 2, per Protomega review of 2c38bc6)
+
+1. *Signatures*: every checkpoint (and ideally every event) carries signer, signature algorithm (Ed25519), and `writer_key_id` resolvable to a public key via a defined registry; key rotation/revocation events are first-class chain events signed under the outgoing key.
+2. *Witness receipts*: witness MUST return a durable, signed receipt (over `(chain_id, event_id, head_hash)`); verifiers query the witness by `(chain_id, event_id)` and validate the receipt signature. Append-only/consistency proofs are required for full transparency-log semantics (deferred).
+3. *Retry policy*: `operation_id` deduplication applies only to idempotent or queryable tools. For non-idempotent, non-queryable tools, recovery MUST NOT auto-retry; `outcome_unconfirmed` is retained and human/agent confirmation is required.
+4. *Content hash construction*: `content_hash = H(domsep || H(input_blob) || H(output_blob))` with domain separation per event type; input/output artifact hashes are recorded separately; missing blobs resolve to an explicit `blob_unavailable` marker, never silently omitted.
+
+## Terminology
+Until witnesses are deployed and verifiable, F10 is a *design for* public non-equivocation, not public non-equivocation itself.
