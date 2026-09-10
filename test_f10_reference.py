@@ -118,8 +118,12 @@ def test_forged_checkpoint_rejected():
     except AssertionError:
         pass  # forged checkpoint correctly rejected
 
+import f10_reference as f10
 if __name__ == '__main__':
-    test_deterministic_vectors()
+    if f10.HAVE_CRYPTO:
+        test_deterministic_vectors()
+    else:
+        print('SKIP test_deterministic_vectors (no cryptography backend)')
     test_fork_disclosure()
     test_crash_recovery_no_retry()
     test_idempotent_retry()
