@@ -27,7 +27,9 @@ def test_deterministic_vectors():
     # vector 3: genesis event shape
     g = chain.events[0]
     assert g['type'] == 'genesis' and g['prev_hash'] == h(GENESIS_SEED)
-    return {'blob': cp['blob'].decode(), 'sig': cp['sig'], 'genesis_hash': g['event_hash']}
+    vectors = {'blob': cp['blob'].decode(), 'sig': cp['sig'], 'genesis_hash': g['event_hash']}
+    print(json.dumps(vectors, indent=2))  # committed expected vector output (checked into repo)
+    return None  # pytest-friendly: no dict return
 
 def test_fork_disclosure():
     w, _ = fixed_writer()
@@ -38,8 +40,8 @@ def test_fork_disclosure():
     MockTool().call(c2, 'op-1', b'y')  # divergent payload -> different heads
     wit = fixed_witness()
     W = Witness('witness-1', WSEED)
-    W.receive(c1.checkpoint())
-    W.receive(c2.checkpoint())
+    W.receive(c1.checkpoint(), reg)
+    W.receive(c2.checkpoint(), reg)
     receipts = W.query_all('chain-A', len(c1.events) - 1)
     forked, heads = detect_fork(receipts, wit.pub())
     assert forked and len(heads) == 2, heads
@@ -77,10 +79,45 @@ def test_chain_integrity():
     except AssertionError:
         pass
 
+def test_side_effect_crash():
+    w, _ = fixed_writer()
+    chain = Chain('chain-A', w, {'writer-1': w.pub()})
+    tool = MockTool()
+    try:
+        tool.call(chain, 'op-crash', b'payload', crash_after_side_effect=True)
+    except RuntimeError:
+        pass
+    kinds = [e['type'] for e in chain.events]
+    assert 'execution_intent' in kinds and 'execution_result' not in kinds
+    recover(chain, tool.done)
+    kinds = [e['type'] for e in chain.events]
+    assert 'outcome_unconfirmed' in kinds
+    # idempotent retry with same operation_id succeeds, marks result
+    tool.call(chain, 'op-crash', b'payload')
+    assert any(e['type'] == 'execution_result' for e in chain.events)
+    verify_chain(chain.events, {}, 'chain-A')
+
+def test_forged_checkpoint_rejected():
+    w, _ = fixed_writer()
+    other = Sig('writer-2', bytes.fromhex('33' * 32))
+    reg = {'writer-1': w.pub()}
+    chain = Chain('chain-A', w, reg)
+    MockTool().call(chain, 'op-1', b'hello')
+    cp = chain.checkpoint()
+    forged = {'checkpoint': cp['checkpoint'], 'sig': other.sign(cp['blob']), 'writer_key_id': 'writer-1'}
+    W = Witness('witness-1', WSEED)
+    try:
+        W.receive(forged, reg)
+        raise AssertionError('forged checkpoint accepted')
+    except AssertionError:
+        pass  # forged checkpoint correctly rejected
+
 if __name__ == '__main__':
-    vectors = test_deterministic_vectors()
+    test_deterministic_vectors()
     test_fork_disclosure()
     test_crash_recovery_no_retry()
     test_idempotent_retry()
     test_chain_integrity()
-    print(json.dumps({'status': 'ALL PASS', 'vectors': vectors}, indent=2))
+    test_side_effect_crash()
+    test_forged_checkpoint_rejected()
+    print(json.dumps({'status': 'ALL PASS'}, indent=2))
