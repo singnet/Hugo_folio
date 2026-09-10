@@ -115,7 +115,11 @@ def verify_checkpoint(cp_msg, registry):
     cp = cp_msg['checkpoint']
     blob = canon(cp)
     pub = registry[cp_msg['writer_key_id']]
-    assert cp_msg['sig'] and Sig('v', GENESIS_SEED).verify(blob, cp_msg['sig'], pub)
+    assert cp_msg['sig'], 'missing signature'
+    try:
+        assert Sig('v', GENESIS_SEED).verify(blob, cp_msg['sig'], pub)
+    except Exception as e:
+        raise AssertionError('checkpoint signature invalid: %r' % (e,))
     return True
 
 def verify_receipt(r, witness_pub):

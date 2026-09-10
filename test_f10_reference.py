@@ -28,8 +28,10 @@ def test_deterministic_vectors():
     g = chain.events[0]
     assert g['type'] == 'genesis' and g['prev_hash'] == h(GENESIS_SEED)
     vectors = {'blob': cp['blob'].decode(), 'sig': cp['sig'], 'genesis_hash': g['event_hash']}
-    print(json.dumps(vectors, indent=2))  # committed expected vector output (checked into repo)
-    return None  # pytest-friendly: no dict return
+    EXPECTED_A2 = {'blob': '{"chain_id":"chain-A","event_id":2,"head_hash":"a2ad59ef6cef2d4e5a4ad155a4d6a1c541e1455ce7bab19b2b84e07849bfb7ee"}', 'sig': 'b7945296f7e4dc60057d04be88dc6672080457956f282eeb206d04c8d0b574f0', 'genesis_hash': '51931d25e650309c538b7eb78a3cfc9ec83a174ee2c8e7b5a0979883b9982c1b'}
+    assert vectors == EXPECTED_A2, 'vector mismatch: %r' % vectors
+    print(json.dumps(vectors, indent=2))
+    return None
 
 def test_fork_disclosure():
     w, _ = fixed_writer()
