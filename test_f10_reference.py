@@ -1,5 +1,6 @@
 # F10 tests: deterministic vectors + behavioral coverage
-import json, hashlib
+import json
+import f10_reference as f10, hashlib
 from f10_reference import Sig, Chain, Witness, detect_fork, verify_chain, MockTool, recover, canon, h, GENESIS_SEED, PROTO
 
 WSEED = bytes.fromhex('11' * 32)
@@ -29,6 +30,8 @@ def test_deterministic_vectors():
     assert g['type'] == 'genesis' and g['prev_hash'] == h(GENESIS_SEED)
     vectors = {'blob': cp['blob'].decode(), 'sig': cp['sig'], 'genesis_hash': g['event_hash']}
     EXPECTED_A2 = {'blob': '{"chain_id":"chain-A","event_id":2,"head_hash":"a2ad59ef6cef2d4e5a4ad155a4d6a1c541e1455ce7bab19b2b84e07849bfb7ee"}', 'sig': 'b7945296f7e4dc60057d04be88dc6672080457956f282eeb206d04c8d0b574f0', 'genesis_hash': '51931d25e650309c538b7eb78a3cfc9ec83a174ee2c8e7b5a0979883b9982c1b'}
+    if not f10.HAVE_CRYPTO:
+        raise unittest.SkipTest('cryptography backend unavailable; cannot validate Ed25519 vectors')
     assert vectors == EXPECTED_A2, 'vector mismatch: %r' % vectors
     print(json.dumps(vectors, indent=2))
     return None
