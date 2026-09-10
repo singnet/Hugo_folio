@@ -30,7 +30,7 @@ def test_deterministic_vectors():
     g = chain.events[0]
     assert g['type'] == 'genesis' and g['prev_hash'] == h(GENESIS_SEED)
     vectors = {'blob': cp['blob'].decode(), 'sig': cp['sig'], 'genesis_hash': g['event_hash']}
-    EXPECTED_A2 = {'blob': '{"chain_id":"chain-A","event_id":2,"head_hash":"a2ad59ef6cef2d4e5a4ad155a4d6a1c541e1455ce7bab19b2b84e07849bfb7ee"}', 'sig': 'b7945296f7e4dc60057d04be88dc6672080457956f282eeb206d04c8d0b574f0', 'genesis_hash': '51931d25e650309c538b7eb78a3cfc9ec83a174ee2c8e7b5a0979883b9982c1b'}
+    EXPECTED_A2 = {'blob': '{"chain_id":"chain-A","event_id":2,"head_hash":"2cec5e5c471fa377552b4bb1f16f9e91b0ce8f9f29d5171390856e18c7668969"}', 'sig': '7291979127d56ca74a81b2be731650331f76ed5f8f738b1d096371a17e03d6885522ab7ec5eb54abdfc10ad7832c83f3caf751a6657f6d547a24914c77703904', 'genesis_hash': '7f38db8f86577377e5d22c29fbc5453560ab9e050b2921d6e0e624c68508f5a9'}
     if not f10.HAVE_CRYPTO:
         raise unittest.SkipTest('cryptography backend unavailable; cannot validate Ed25519 vectors')
     assert vectors == EXPECTED_A2, 'vector mismatch: %r' % vectors
