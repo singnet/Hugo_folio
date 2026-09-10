@@ -60,3 +60,12 @@ multiple witnesses/gossip or a transparency-log consistency protocol.
 
 ## Terminology
 Until witnesses are deployed and verifiable, F10 is a *design for* public non-equivocation, not public non-equivocation itself.
+
+## Security boundaries (round 3, per Protomega review of 6ee45a0)
+
+1. *Normative signature scope*: every checkpoint MUST be signed; an individual event is authenticated only once included under a verified signed checkpoint — the uncheckpointed tail is provisional. Per-event signatures are optional, not required.
+2. *Witness equivocation exposure*: the witness receipt API MUST support queries returning *all* receipts for a given `(chain_id, event_id)` (or head-hash range), not single lookups, and MUST expose any conflicting receipts. Trust model explicitly assumes a Byzantine witness may issue and selectively return receipts; equivocation resistance for the witness itself requires an append-only auditable log or gossip across independent witnesses (deferred, stated as limitation).
+3. *Key registry trust anchor*: the initial registry entries (writer_key_id -> public key) are the trust anchor, provisioned via a defined out-of-band bootstrap process and recorded as a genesis event on the chain.
+4. *Key rotation continuity*: rotation MUST be signed by both old and new keys (dual-signed rotation event); exception: compromise recovery allows single signature by the new key plus a designated recovery quorum, recorded as an explicit `compromise_recovery` event.
+
+With these, F10 spec is regarded as ready to implement and test.
