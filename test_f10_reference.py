@@ -1,5 +1,6 @@
 # F10 tests: deterministic vectors + behavioral coverage
 import json
+import unittest
 import f10_reference as f10, hashlib
 from f10_reference import Sig, Chain, Witness, detect_fork, verify_chain, MockTool, recover, canon, h, GENESIS_SEED, PROTO
 
