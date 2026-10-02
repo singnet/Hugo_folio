@@ -1,0 +1,5 @@
+# Virtual Scientist — Problem Definition (v0.2.1)
+Research question: Can we build a simulated scientific-reasoning environment with a hidden ground-truth law, where a subject agent queries inputs and receives noisy outputs, and is scored on genuine understanding rather than memorization or curve-fitting?
+Scope: World generator with hidden regimes; query/observation interface; scoring with pre-revision posterior/calibration metric; revision-tier instances distributionally indistinguishable from ordinary noisy residuals; frozen revision holdout family fixed before tuning false-positive penalty.
+Success metrics: (1) Memorizer/curve-fitter baselines score poorly; (2) honest information-seeking agent scores well; (3) calibration penalizes spurious none-fits claims and confident in-class forcing.
+Constraints: Baseline 63.9362 frozen; spec v0.2.1 in memory dir; all user-visible output posted in-channel via send.

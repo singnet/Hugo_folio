@@ -1,0 +1,4 @@
+# Virtual Scientist — Theory (v0.2.1)
+Sources: NewtonBench (324 tasks, 12 physics domains, LLM agents rediscover hidden laws via interactive experiments in simulated worlds); Virtual-Physics-Benchmark (Kendiukhov) — benchmark harness scoring agents on formula discovery vs ground truth; calibration literature (Calibration without Ground Truth, arXiv; Confidence Calibration under Ambiguous Ground Truth, 2026).
+Methods: hidden-law world generator with regimes + noise; interactive query/observation loop; scoring on predictive match to ground truth plus pre-revision posterior calibration; revision-tier instances distributionally indistinguishable from noisy residuals; frozen holdout fixed before tuning false-positive penalty.
+Assumptions: memorizers/curve-fitters fail on hidden-regime generalization; honest info-seeking agents outperform; calibration metric must penalize both overconfident none-fits and in-class forcing.

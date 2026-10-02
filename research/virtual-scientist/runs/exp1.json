@@ -1,0 +1,24 @@
+{
+  "version": "v0.2.1",
+  "seed": 42,
+  "agents": {
+    "Memorizer": {
+      "mse": 0.3975158078888096,
+      "calibration": 0.05,
+      "spurious_count": 0,
+      "score": 0.05
+    },
+    "CurveFitter": {
+      "mse": 0.02412820712612602,
+      "calibration": 0.05,
+      "spurious_count": 0,
+      "score": 0.05
+    },
+    "HonestAgent": {
+      "mse": 0.018618714307081875,
+      "calibration": 0.054546609409614734,
+      "spurious_count": 0,
+      "score": 0.054546609409614734
+    }
+  }
+}
