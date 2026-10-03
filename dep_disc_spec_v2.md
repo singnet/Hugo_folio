@@ -2,7 +2,7 @@
 ## 0. Status
 v2 EXTENSION of the v1-frozen A/B/C contract (confidence-based proceed/review/caution, threshold 0.5, frozen Sep 23). v1 is NOT replaced; sections below add severity-based tiers on top.
 ## 1. v1 -> v2 Mapping (explicit, no silent drift)
-- v1 confidence c on conflict atom STV, single threshold 0.5: proceed (c>0.5) / review (c=0.5 boundary) / caution (c<0.5).
+- v1 confidence c on conflict atom STV, single threshold 0.5: proceed (no conflict atom) / caution (c>=0.5, high confidence in conflict = high concern) / review (c<0.5).
 - v2 severity s = 1 - c (policy parameter, tunable). Mapping:
   - v1 proceed  <-> v2 REVIEW-tier-or-better pass (s < 0.3)
   - v1 review   <-> v2 CAUTION (0.3 <= s <= 0.7)
