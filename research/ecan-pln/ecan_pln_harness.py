@@ -27,7 +27,7 @@ def sti_diffusion(G, seed_sti, n=8):
         for u in G:
             for v in G[u]:
                 if sti[v] > 0.01 and new_sti[u] < sti[v]:
-                    new_sti[u] )= 0.5 * sti[v]
+                    new_sti[u] = 0.5 * sti[v]
         sti = new_sti
     return sti
 
@@ -66,5 +66,5 @@ if __name__ == "__main__":
             dp_rand.append(success_depth(g, p2, target) or 9999)
         results[name] = (("hebbian", sum(dp_heb)/20), ("random", sum(dp_rand)/20))
     for name, r in results.items():
-        print(f"{name}: hebbian average depth=/.r.2f}", r.hebbian )
-        print(f"{name}: random average depth=/.rf2.2f}", r.random)
+        print(f'{name}: hebbian avg depth={r[0]:.2f}')
+        print(f'{name}: random avg depth={r[1]:.2f}')

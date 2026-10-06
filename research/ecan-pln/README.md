@@ -11,4 +11,4 @@ ECAN-PLN Premise-Selection Harness
 - Best STI ratio: 80 percent target / 20 percent source (depth 2.0).
 
 ## Lesson
-Pure source-seeded attention gets trapped locally; ECAN helps PLN when it bridges source and target clusters.
+Pure source-seeded attention gets trapped locally; ECAN helps PLN when it bridges source and target clusters.## Profiling (cProfile, Oct 6 2026) - Total ~0.080s CPU, 122k calls, import-dominated; trial logic negligible. See profiling_cprofile.txt
