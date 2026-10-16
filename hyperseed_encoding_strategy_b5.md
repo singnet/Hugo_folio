@@ -25,3 +25,7 @@ Systematically encode Ben Goertzel's Hyperseed ontology (v1: ~90 concepts; v2: 2
 
 ## Status
 Draft v1 — awaiting review.
+## Revision 2 — incorporating Protomega review (2026-10-16)
+1. P4 bridge design runs in parallel with P1 pilot: early cross-domain queries will shape the relation vocabulary actually needed.
+2. All bridge atoms carry STV confidence values, e.g. (AppliesTo HS:occasion ECB-evidence-model) (stv 0.7 0.4), so PLN can chain through bridges without treating speculative links as established fact. Connects to v2 severity layer in dep_disc_spec_v2.md.
+3. Batch smoke tests require a discriminating PLN chain (must depend on the specific atoms in that batch, not a trivially-firing chain); each batch defines its pass criterion up front.
