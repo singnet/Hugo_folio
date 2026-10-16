@@ -6,19 +6,19 @@
    "claim_id": "mechanics-claim-1",
    "text": "Force equals mass times acceleration",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $b net-force-applied) )) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((==> (--> $b net-force-applied) (-->  accelerates)) (stv 1.0 0.9))"
   },
   {
    "claim_id": "mechanics-claim-2",
    "text": "Momentum is conserved in isolated systems",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $sys isolated) )) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((==> (--> $sys isolated) (-->  momentum-conserved)) (stv 1.0 0.9))"
   },
   {
    "claim_id": "mechanics-claim-3",
    "text": "Friction opposes relative motion between surfaces",
    "status": "full",
-   "metta_atom": "(|- ((--> friction motion-opposing)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((--> friction motion-opposing) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "mechanics-claim-4",
@@ -30,19 +30,19 @@
    "claim_id": "mechanics-claim-5",
    "text": "Energy is conserved in closed systems",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $sys closed) )) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((==> (--> $sys closed) (-->  energy-conserved)) (stv 1.0 0.9))"
   },
   {
    "claim_id": "mechanics-claim-6",
    "text": "Kinetic energy scales with velocity squared",
    "status": "candidate_atom",
-   "metta_atom": "(--> kinetic-energy velocity-squared)"
+   "metta_atom": "(|- ((--> kinetic-energy velocity-squared) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "mechanics-claim-7",
    "text": "Simple harmonic motion occurs near stable equilibria",
    "status": "candidate_atom",
-   "metta_atom": "(--> stable-equilibrium harmonic-oscillation)"
+   "metta_atom": "(|- ((--> stable-equilibrium harmonic-oscillation) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "mechanics-claim-8",
@@ -54,7 +54,7 @@
    "claim_id": "mechanics-claim-9",
    "text": "Gravitational attraction follows an inverse-square law",
    "status": "full",
-   "metta_atom": "(|- ((--> gravity inverse-square-law)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((--> gravity inverse-square-law) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "mechanics-claim-10",
@@ -66,7 +66,7 @@
    "claim_id": "mechanics-claim-11",
    "text": "Chaos arises in deterministic nonlinear systems",
    "status": "candidate_atom",
-   "metta_atom": "(--> nonlinear-deterministic-system chaos)"
+   "metta_atom": "(|- ((--> nonlinear-deterministic-system chaos) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "mechanics-claim-12",
@@ -78,13 +78,13 @@
    "claim_id": "mechanics-claim-13",
    "text": "Drag force increases with speed through fluid",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $o high-speed-in-fluid) )) (stv 0.85 0.85))"
+   "metta_atom": "(|- ((==> (--> $o high-speed-in-fluid) (-->  significant-drag)) (stv 0.85 0.85))"
   },
   {
    "claim_id": "mechanics-claim-14",
    "text": "Torque changes angular momentum",
    "status": "full",
-   "metta_atom": "(|- ((--> torque angular-momentum-change)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((--> torque angular-momentum-change) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "mechanics-claim-15",

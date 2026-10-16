@@ -6,19 +6,19 @@
    "claim_id": "eco-claim-1",
    "text": "Energy flows through food chains from producers to consumers",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $chain food-chain) )) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((==> (--> $chain food-chain) (-->  trophic-transfer)) (stv 1.0 0.9))"
   },
   {
    "claim_id": "eco-claim-2",
    "text": "Predator-prey populations oscillate with lag",
    "status": "full",
-   "metta_atom": "(|- ((--> predator-prey-system lagged-oscillation)) (stv 0.9 0.9))"
+   "metta_atom": "(|- ((--> predator-prey-system lagged-oscillation) (stv 0.9 0.9)))"
   },
   {
    "claim_id": "eco-claim-3",
    "text": "Keystone species disproportionately affect community structure",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $s keystone-species) )) (stv 0.9 0.85))"
+   "metta_atom": "(|- ((==> (--> $s keystone-species) (-->  large-impact-if-removed)) (stv 0.9 0.85))"
   },
   {
    "claim_id": "eco-claim-4",
@@ -36,13 +36,13 @@
    "claim_id": "eco-claim-6",
    "text": "Competitive exclusion drives niche differentiation",
    "status": "candidate_atom",
-   "metta_atom": "(--> competitive-exclusion niche-differentiation)"
+   "metta_atom": "(|- ((--> competitive-exclusion niche-differentiation) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "eco-claim-7",
    "text": "Succession follows directional community change after disturbance",
    "status": "candidate_atom",
-   "metta_atom": "(--> ecological-succession directional-change)"
+   "metta_atom": "(|- ((--> ecological-succession directional-change) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "eco-claim-8",
@@ -54,7 +54,7 @@
    "claim_id": "eco-claim-9",
    "text": "Decomposers recycle organic matter into nutrients",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $o decomposer) )) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((==> (--> $o decomposer) (-->  breaks-down-organic-matter)) (stv 1.0 0.9))"
   },
   {
    "claim_id": "eco-claim-10",
@@ -66,13 +66,13 @@
    "claim_id": "eco-claim-11",
    "text": "Mutualisms increase fitness of both partners",
    "status": "candidate_atom",
-   "metta_atom": "(--> mutualism reciprocal-fitness-gain)"
+   "metta_atom": "(|- ((--> mutualism reciprocal-fitness-gain) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "eco-claim-12",
    "text": "Trophic cascades propagate predator effects down food webs",
    "status": "full",
-   "metta_atom": "(|- ((--> trophic-cascade top-down-propagation)) (stv 0.9 0.9))"
+   "metta_atom": "(|- ((--> trophic-cascade top-down-propagation) (stv 0.9 0.9)))"
   },
   {
    "claim_id": "eco-claim-13",
@@ -84,7 +84,7 @@
    "claim_id": "eco-claim-14",
    "text": "Carrying capacity limits population growth",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $pop near-carrying-capacity) )) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((==> (--> $pop near-carrying-capacity) (-->  growth-limited)) (stv 1.0 0.9))"
   },
   {
    "claim_id": "eco-claim-15",

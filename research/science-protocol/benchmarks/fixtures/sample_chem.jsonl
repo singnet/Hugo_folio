@@ -6,7 +6,7 @@
    "claim_id": "chem-claim-1",
    "text": "Atoms bond to lower their total energy",
    "status": "full",
-   "metta_atom": "(|- ((--> chemical-bond energy-lowering)) (stv 0.9 0.9))"
+   "metta_atom": "(|- ((--> chemical-bond energy-lowering) (stv 0.9 0.9)))"
   },
   {
    "claim_id": "chem-claim-2",
@@ -18,7 +18,7 @@
    "claim_id": "chem-claim-3",
    "text": "Catalysts lower activation energy without being consumed",
    "status": "full",
-   "metta_atom": "(|- ((--> catalyst activation-energy-lowering) (--> catalyst unconsumed)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((--> catalyst activation-energy-lowering) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "chem-claim-4",
@@ -36,7 +36,7 @@
    "claim_id": "chem-claim-6",
    "text": "Acids donate protons in aqueous solution",
    "status": "candidate_atom",
-   "metta_atom": "(--> acid proton-donor)"
+   "metta_atom": "(|- ((--> acid proton-donor) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "chem-claim-7",
@@ -60,7 +60,7 @@
    "claim_id": "chem-claim-10",
    "text": "Noble gases rarely form compounds",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $el noble-gas) )) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((==> (--> $el noble-gas) (-->  chemically-inert)) (stv 1.0 0.9))"
   },
   {
    "claim_id": "chem-claim-11",
@@ -78,13 +78,13 @@
    "claim_id": "chem-claim-13",
    "text": "Hydrogen bonding explains waters high boiling point",
    "status": "candidate_atom",
-   "metta_atom": "(--> water-high-bp hydrogen-bonding)"
+   "metta_atom": "(|- ((--> water-high-bp hydrogen-bonding) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "chem-claim-14",
    "text": "Radioactive decay follows first-order kinetics",
    "status": "full",
-   "metta_atom": "(|- ((--> radioactive-decay first-order-kinetics)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((--> radioactive-decay first-order-kinetics) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "chem-claim-15",

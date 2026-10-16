@@ -6,13 +6,13 @@
    "claim_id": "astro-claim-1",
    "text": "Stars fuse hydrogen into helium in their cores",
    "status": "full",
-   "metta_atom": "(|- ((--> main-sequence-star core-hydrogen-fusion)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((--> main-sequence-star core-hydrogen-fusion) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "astro-claim-2",
    "text": "Redshift of distant galaxies increases with distance",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $galaxy distant) )) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((==> (--> $galaxy distant) (-->  high-redshift)) (stv 1.0 0.9))"
   },
   {
    "claim_id": "astro-claim-3",
@@ -30,13 +30,13 @@
    "claim_id": "astro-claim-5",
    "text": "Neutron stars have extremely high density",
    "status": "candidate_atom",
-   "metta_atom": "(--> neutron-star extreme-density)"
+   "metta_atom": "(|- ((--> neutron-star extreme-density) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "astro-claim-6",
    "text": "Cepheid variables have a period-luminosity relation",
    "status": "candidate_atom",
-   "metta_atom": "(--> cepheid period-luminosity-relation)"
+   "metta_atom": "(|- ((--> cepheid period-luminosity-relation) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "astro-claim-7",
@@ -48,13 +48,13 @@
    "claim_id": "astro-claim-8",
    "text": "Supernovae enrich the interstellar medium with heavy elements",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $sn supernova) )) (stv 0.95 0.9))"
+   "metta_atom": "(|- ((==> (--> $sn supernova) (-->  bright-transient)) (stv 0.95 0.9))"
   },
   {
    "claim_id": "astro-claim-9",
    "text": "Cosmic microwave background is relic radiation from recombination",
    "status": "full",
-   "metta_atom": "(|- ((--> cmb recombination-relic)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((--> cmb recombination-relic) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "astro-claim-10",
@@ -66,7 +66,7 @@
    "claim_id": "astro-claim-11",
    "text": "Galaxy rotation curves imply non-luminous mass",
    "status": "candidate_atom",
-   "metta_atom": "(--> galaxy-rotation-curve dark-mass-evidence)"
+   "metta_atom": "(|- ((--> galaxy-rotation-curve dark-mass-evidence) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "astro-claim-12",
@@ -78,13 +78,13 @@
    "claim_id": "astro-claim-13",
    "text": "Stellar luminosity scales with mass for main sequence stars",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $s main-sequence-star) )) (stv 0.9 0.9))"
+   "metta_atom": "(|- ((==> (--> $s main-sequence-star) (-->  hydrogen-fusing)) (stv 0.9 0.9))"
   },
   {
    "claim_id": "astro-claim-14",
    "text": "Active galactic nuclei host supermassive black holes",
    "status": "candidate_atom",
-   "metta_atom": "(--> agn supermassive-black-hole)"
+   "metta_atom": "(|- ((--> agn supermassive-black-hole) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "astro-claim-15",

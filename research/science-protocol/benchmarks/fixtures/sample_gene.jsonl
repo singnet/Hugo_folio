@@ -6,37 +6,37 @@
    "claim_id": "gene-claim-1",
    "text": "DNA stores genetic information in base sequences",
    "status": "full",
-   "metta_atom": "(|- ((--> dna base-sequence-information-storage)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((--> dna base-sequence-information-storage) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "gene-claim-2",
    "text": "GC content varies between species",
    "status": "full",
-   "metta_atom": "(|- ((--> gc-content species-dependent)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((--> gc-content species-dependent) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "gene-claim-3",
    "text": "Gene expression is tissue specific",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $g protein-coding) )) (stv 0.9 0.85))"
+   "metta_atom": "(|- ((==> (--> $g protein-coding) (-->  produces-mrna)) (stv 0.9 0.85))"
   },
   {
    "claim_id": "gene-claim-4",
    "text": "Transcription converts DNA to mRNA",
    "status": "full",
-   "metta_atom": "(|- ((--> transcription dna-to-mrna)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((--> transcription dna-to-mrna) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "gene-claim-5",
    "text": "Methylation silences promoters",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $p methylated-promoter) )) (stv 0.9 0.9))"
+   "metta_atom": "(|- ((==> (--> $p methylated-promoter) (-->  reduced-transcription)) (stv 0.9 0.9))"
   },
   {
    "claim_id": "gene-claim-6",
    "text": "Chromosomal crossover increases genetic variation",
    "status": "full",
-   "metta_atom": "(|- ((--> chromosomal-crossover variation-increasing)) (stv 0.95 0.9))"
+   "metta_atom": "(|- ((--> chromosomal-crossover variation-increasing) (stv 0.95 0.9)))"
   },
   {
    "claim_id": "gene-claim-7",
@@ -60,19 +60,19 @@
    "claim_id": "gene-claim-10",
    "text": "Horizontal gene transfer occurs in prokaryotes",
    "status": "candidate_atom",
-   "metta_atom": "(--> prokaryote horizontal-gene-transfer)"
+   "metta_atom": "(|- ((--> prokaryote horizontal-gene-transfer) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "gene-claim-11",
    "text": "Alternative splicing multiplies proteome diversity",
    "status": "candidate_atom",
-   "metta_atom": "(--> alternative-splicing proteome-diversity)"
+   "metta_atom": "(|- ((--> alternative-splicing proteome-diversity) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "gene-claim-12",
    "text": "Codon usage bias reflects mutational pressures",
    "status": "candidate_atom",
-   "metta_atom": "(--> codon-usage-bias mutational-pressure)"
+   "metta_atom": "(|- ((--> codon-usage-bias mutational-pressure) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "gene-claim-13",

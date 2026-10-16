@@ -6,7 +6,7 @@
    "claim_id": "geo-claim-1",
    "text": "Rivers flow from higher to lower elevation",
    "status": "full",
-   "metta_atom": "(|- ((--> river-flow downhill)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((--> river-flow downhill) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "geo-claim-2",
@@ -18,7 +18,7 @@
    "claim_id": "geo-claim-3",
    "text": "Rain shadows form on leeward sides of mountains",
    "status": "candidate_atom",
-   "metta_atom": "(--> rain-shadow leeward-mountain-side)"
+   "metta_atom": "(|- ((--> rain-shadow leeward-mountain-side) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "geo-claim-4",
@@ -36,7 +36,7 @@
    "claim_id": "geo-claim-6",
    "text": "Ocean currents redistribute heat poleward",
    "status": "full",
-   "metta_atom": "(|- ((--> ocean-current heat-poleward-transport)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((--> ocean-current heat-poleward-transport) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "geo-claim-7",
@@ -48,7 +48,7 @@
    "claim_id": "geo-claim-8",
    "text": "Karst topography arises from limestone dissolution",
    "status": "candidate_atom",
-   "metta_atom": "(--> karst-topography limestone-dissolution)"
+   "metta_atom": "(|- ((--> karst-topography limestone-dissolution) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "geo-claim-9",
