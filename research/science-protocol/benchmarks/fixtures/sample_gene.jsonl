@@ -18,7 +18,7 @@
    "claim_id": "gene-claim-3",
    "text": "Gene expression is tissue specific",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $g protein-coding) (-->  produces-mrna)) (stv 0.9 0.85))"
+   "metta_atom": "(|- ((==> (--> $g protein-coding) (-->  produces-mrna)) (stv 0.9 0.85)))"
   },
   {
    "claim_id": "gene-claim-4",
@@ -30,7 +30,7 @@
    "claim_id": "gene-claim-5",
    "text": "Methylation silences promoters",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $p methylated-promoter) (-->  reduced-transcription)) (stv 0.9 0.9))"
+   "metta_atom": "(|- ((==> (--> $p methylated-promoter) (-->  reduced-transcription)) (stv 0.9 0.9)))"
   },
   {
    "claim_id": "gene-claim-6",

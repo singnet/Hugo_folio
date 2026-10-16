@@ -60,7 +60,7 @@
    "claim_id": "chem-claim-10",
    "text": "Noble gases rarely form compounds",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $el noble-gas) (-->  chemically-inert)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((==> (--> $el noble-gas) (-->  chemically-inert)) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "chem-claim-11",

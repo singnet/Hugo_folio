@@ -12,7 +12,7 @@
    "claim_id": "astro-claim-2",
    "text": "Redshift of distant galaxies increases with distance",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $galaxy distant) (-->  high-redshift)) (stv 1.0 0.9))"
+   "metta_atom": "(|- ((==> (--> $galaxy distant) (-->  high-redshift)) (stv 1.0 0.9)))"
   },
   {
    "claim_id": "astro-claim-3",
@@ -48,7 +48,7 @@
    "claim_id": "astro-claim-8",
    "text": "Supernovae enrich the interstellar medium with heavy elements",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $sn supernova) (-->  bright-transient)) (stv 0.95 0.9))"
+   "metta_atom": "(|- ((==> (--> $sn supernova) (-->  bright-transient)) (stv 0.95 0.9)))"
   },
   {
    "claim_id": "astro-claim-9",
@@ -78,7 +78,7 @@
    "claim_id": "astro-claim-13",
    "text": "Stellar luminosity scales with mass for main sequence stars",
    "status": "full",
-   "metta_atom": "(|- ((==> (--> $s main-sequence-star) (-->  hydrogen-fusing)) (stv 0.9 0.9))"
+   "metta_atom": "(|- ((==> (--> $s main-sequence-star) (-->  hydrogen-fusing)) (stv 0.9 0.9)))"
   },
   {
    "claim_id": "astro-claim-14",
