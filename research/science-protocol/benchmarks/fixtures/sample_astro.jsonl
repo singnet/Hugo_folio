@@ -1,1 +1,96 @@
-{"task_id": "astro-seed42-test", "seed": 42, "claims": [{"claim_id": "astro-claim-1", "text": "Stars fuse hydrogen into helium in their cores", "status": "full", "metta_atom": "(|- ((--> main-sequence-star core-hydrogen-fusion)) (stv 1.0 0.9))"}, {"claim_id": "astro-claim-2", "text": "Redshift of distant galaxies increases with distance", "status": "full", "metta_atom": "(|- ((==> (--> $galaxy distant) (--> $galaxy high-redshift)) (stv 1.0 0.9))"}, {"claim_id": "astro-claim-3", "text": "Black holes form from massive stellar collapse", "status": "sketch", "metta_atom": null}, {"claim_id": "astro-claim-4", "text": "Planets form in protoplanetary disks", "status": "sketch", "metta_atom": null}, {"claim_id": "astro-claim-5", "text": "Neutron stars have extremely high density", "status": "candidate_atom", "metta_atom": "(--> neutron-star extreme-density)"}, {"claim_id": "astro-claim-6", "text": "Cepheid variables have a period-luminosity relation", "status": "candidate_atom", "metta_atom": "(--> cepheid period-luminosity-relation)"}, {"claim_id": "astro-claim-7", "text": "Dark matter is made of WIMPs", "status": "conjecture", "metta_atom": null}, {"claim_id": "astro-claim-8", "text": "Supernovae enrich the interstellar medium with heavy elements", "status": "full", "metta_atom": "(|- ((==> (--> $sn supernova) (--> $sn heavy-element-enrichment)) (stv 0.95 0.9))"}, {"claim_id": "astro-claim-9", "text": "Cosmic microwave background is relic radiation from recombination", "status": "full", "metta_atom": "(|- ((--> cmb recombination-relic)) (stv 1.0 0.9))"}, {"claim_id": "astro-claim-10", "text": "Tidal forces cause orbital resonance locking", "status": "sketch", "metta_atom": null}, {"claim_id": "astro-claim-11", "text": "Galaxy rotation curves imply non-luminous mass", "status": "candidate_atom", "metta_atom": "(--> galaxy-rotation-curve dark-mass-evidence)"}, {"claim_id": "astro-claim-12", "text": "Every planetary system has an Earth-like planet", "status": "conjecture", "metta_atom": null}, {"claim_id": "astro-claim-13", "text": "Stellar luminosity scales with mass for main sequence stars", "status": "full", "metta_atom": "(|- ((==> (--> $s main-sequence-star) (--> $s mass-luminosity-relation)) (stv 0.9 0.9))"}, {"claim_id": "astro-claim-14", "text": "Active galactic nuclei host supermassive black holes", "status": "candidate_atom", "metta_atom": "(--> agn supermassive-black-hole)"}, {"claim_id": "astro-claim-15", "text": "Gamma-ray bursts signal extraterrestrial civilizations", "status": "conjecture", "metta_atom": null}]}
+{
+ "task_id": "astro-seed42-test",
+ "seed": 42,
+ "claims": [
+  {
+   "claim_id": "astro-claim-1",
+   "text": "Stars fuse hydrogen into helium in their cores",
+   "status": "full",
+   "metta_atom": "(|- ((--> main-sequence-star core-hydrogen-fusion)) (stv 1.0 0.9))"
+  },
+  {
+   "claim_id": "astro-claim-2",
+   "text": "Redshift of distant galaxies increases with distance",
+   "status": "full",
+   "metta_atom": "(|- ((==> (--> $galaxy distant) )) (stv 1.0 0.9))"
+  },
+  {
+   "claim_id": "astro-claim-3",
+   "text": "Black holes form from massive stellar collapse",
+   "status": "sketch",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "astro-claim-4",
+   "text": "Planets form in protoplanetary disks",
+   "status": "sketch",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "astro-claim-5",
+   "text": "Neutron stars have extremely high density",
+   "status": "candidate_atom",
+   "metta_atom": "(--> neutron-star extreme-density)"
+  },
+  {
+   "claim_id": "astro-claim-6",
+   "text": "Cepheid variables have a period-luminosity relation",
+   "status": "candidate_atom",
+   "metta_atom": "(--> cepheid period-luminosity-relation)"
+  },
+  {
+   "claim_id": "astro-claim-7",
+   "text": "Dark matter is made of WIMPs",
+   "status": "conjecture",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "astro-claim-8",
+   "text": "Supernovae enrich the interstellar medium with heavy elements",
+   "status": "full",
+   "metta_atom": "(|- ((==> (--> $sn supernova) )) (stv 0.95 0.9))"
+  },
+  {
+   "claim_id": "astro-claim-9",
+   "text": "Cosmic microwave background is relic radiation from recombination",
+   "status": "full",
+   "metta_atom": "(|- ((--> cmb recombination-relic)) (stv 1.0 0.9))"
+  },
+  {
+   "claim_id": "astro-claim-10",
+   "text": "Tidal forces cause orbital resonance locking",
+   "status": "sketch",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "astro-claim-11",
+   "text": "Galaxy rotation curves imply non-luminous mass",
+   "status": "candidate_atom",
+   "metta_atom": "(--> galaxy-rotation-curve dark-mass-evidence)"
+  },
+  {
+   "claim_id": "astro-claim-12",
+   "text": "Every planetary system has an Earth-like planet",
+   "status": "conjecture",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "astro-claim-13",
+   "text": "Stellar luminosity scales with mass for main sequence stars",
+   "status": "full",
+   "metta_atom": "(|- ((==> (--> $s main-sequence-star) )) (stv 0.9 0.9))"
+  },
+  {
+   "claim_id": "astro-claim-14",
+   "text": "Active galactic nuclei host supermassive black holes",
+   "status": "candidate_atom",
+   "metta_atom": "(--> agn supermassive-black-hole)"
+  },
+  {
+   "claim_id": "astro-claim-15",
+   "text": "Gamma-ray bursts signal extraterrestrial civilizations",
+   "status": "conjecture",
+   "metta_atom": null
+  }
+ ]
+}

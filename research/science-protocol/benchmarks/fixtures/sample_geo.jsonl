@@ -1,1 +1,96 @@
-{"task_id": "geo-seed42-test", "seed": 42, "claims": [{"claim_id": "geo-claim-1", "text": "Rivers flow from higher to lower elevation", "status": "full", "metta_atom": "(|- ((--> river-flow downhill)) (stv 1.0 0.9))"}, {"claim_id": "geo-claim-2", "text": "Continental plates drift over geological time", "status": "sketch", "metta_atom": null}, {"claim_id": "geo-claim-3", "text": "Rain shadows form on leeward sides of mountains", "status": "candidate_atom", "metta_atom": "(--> rain-shadow leeward-mountain-side)"}, {"claim_id": "geo-claim-4", "text": "All deserts were once seabeds", "status": "conjecture", "metta_atom": null}, {"claim_id": "geo-claim-5", "text": "Erosion rates depend on vegetation cover", "status": "full", "metta_atom": "(|- ((==> (--> $area vegetated) (--> $area low-erosion-rate)) (stv 0.8 0.8)))"}, {"claim_id": "geo-claim-6", "text": "Ocean currents redistribute heat poleward", "status": "full", "metta_atom": "(|- ((--> ocean-current heat-poleward-transport)) (stv 1.0 0.9))"}, {"claim_id": "geo-claim-7", "text": "Glacial moraines mark former ice extent", "status": "sketch", "metta_atom": null}, {"claim_id": "geo-claim-8", "text": "Karst topography arises from limestone dissolution", "status": "candidate_atom", "metta_atom": "(--> karst-topography limestone-dissolution)"}, {"claim_id": "geo-claim-9", "text": "Volcanic soil is more fertile than average", "status": "conjecture", "metta_atom": null}, {"claim_id": "geo-claim-10", "text": "Coastal erosion accelerates with sea level rise", "status": "full", "metta_atom": "(|- ((==> (--> sea-level rising) (--> coastal-erosion accelerating)) (stv 0.9 0.85)))"}, {"claim_id": "geo-claim-11", "text": "Monsoons are driven by land-sea temperature contrasts", "status": "sketch", "metta_atom": null}, {"claim_id": "geo-claim-12", "text": "Delta formation requires sediment load and low-energy coast", "status": "candidate_atom", "metta_atom": "(--> delta-formation (and sediment-load low-energy-coast))"}, {"claim_id": "geo-claim-13", "text": "Every mountain range is rising", "status": "conjecture", "metta_atom": null}, {"claim_id": "geo-claim-14", "text": "Tectonic subduction zones host most deep earthquakes", "status": "full", "metta_atom": "(|- ((==> (--> $zone subduction-zone) (--> $zone deep-earthquake-prone)) (stv 0.95 0.9)))"}, {"claim_id": "geo-claim-15", "text": "Permafrost thaw alters regional hydrology", "status": "sketch", "metta_atom": null}]}
+{
+ "task_id": "geo-seed42-test",
+ "seed": 42,
+ "claims": [
+  {
+   "claim_id": "geo-claim-1",
+   "text": "Rivers flow from higher to lower elevation",
+   "status": "full",
+   "metta_atom": "(|- ((--> river-flow downhill)) (stv 1.0 0.9))"
+  },
+  {
+   "claim_id": "geo-claim-2",
+   "text": "Continental plates drift over geological time",
+   "status": "sketch",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "geo-claim-3",
+   "text": "Rain shadows form on leeward sides of mountains",
+   "status": "candidate_atom",
+   "metta_atom": "(--> rain-shadow leeward-mountain-side)"
+  },
+  {
+   "claim_id": "geo-claim-4",
+   "text": "All deserts were once seabeds",
+   "status": "conjecture",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "geo-claim-5",
+   "text": "Erosion rates depend on vegetation cover",
+   "status": "full",
+   "metta_atom": "(|- ((==> (--> $area vegetated) (--> $area low-erosion-rate))) (stv 0.8 0.8))"
+  },
+  {
+   "claim_id": "geo-claim-6",
+   "text": "Ocean currents redistribute heat poleward",
+   "status": "full",
+   "metta_atom": "(|- ((--> ocean-current heat-poleward-transport)) (stv 1.0 0.9))"
+  },
+  {
+   "claim_id": "geo-claim-7",
+   "text": "Glacial moraines mark former ice extent",
+   "status": "sketch",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "geo-claim-8",
+   "text": "Karst topography arises from limestone dissolution",
+   "status": "candidate_atom",
+   "metta_atom": "(--> karst-topography limestone-dissolution)"
+  },
+  {
+   "claim_id": "geo-claim-9",
+   "text": "Volcanic soil is more fertile than average",
+   "status": "conjecture",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "geo-claim-10",
+   "text": "Coastal erosion accelerates with sea level rise",
+   "status": "full",
+   "metta_atom": "(|- ((==> (--> sea-level rising) (--> coastal-erosion accelerating))) (stv 0.9 0.85))"
+  },
+  {
+   "claim_id": "geo-claim-11",
+   "text": "Monsoons are driven by land-sea temperature contrasts",
+   "status": "sketch",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "geo-claim-12",
+   "text": "Delta formation requires sediment load and low-energy coast",
+   "status": "candidate_atom",
+   "metta_atom": "(--> delta-formation (and sediment-load low-energy-coast))"
+  },
+  {
+   "claim_id": "geo-claim-13",
+   "text": "Every mountain range is rising",
+   "status": "conjecture",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "geo-claim-14",
+   "text": "Tectonic subduction zones host most deep earthquakes",
+   "status": "full",
+   "metta_atom": "(|- ((==> (--> $zone subduction-zone) (--> $zone deep-earthquake-prone))) (stv 0.95 0.9))"
+  },
+  {
+   "claim_id": "geo-claim-15",
+   "text": "Permafrost thaw alters regional hydrology",
+   "status": "sketch",
+   "metta_atom": null
+  }
+ ]
+}

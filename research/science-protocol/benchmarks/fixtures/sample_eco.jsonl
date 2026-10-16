@@ -1,1 +1,96 @@
-{"task_id": "eco-seed42-test", "seed": 42, "claims": [{"claim_id": "eco-claim-1", "text": "Energy flows through food chains from producers to consumers", "status": "full", "metta_atom": "(|- ((==> (--> $chain food-chain) (--> $chain producer-to-consumer-flow)) (stv 1.0 0.9))"}, {"claim_id": "eco-claim-2", "text": "Predator-prey populations oscillate with lag", "status": "full", "metta_atom": "(|- ((--> predator-prey-system lagged-oscillation)) (stv 0.9 0.9))"}, {"claim_id": "eco-claim-3", "text": "Keystone species disproportionately affect community structure", "status": "full", "metta_atom": "(|- ((==> (--> $s keystone-species) (--> $s community-structure-control)) (stv 0.9 0.85))"}, {"claim_id": "eco-claim-4", "text": "Species diversity tends to increase ecosystem stability", "status": "sketch", "metta_atom": null}, {"claim_id": "eco-claim-5", "text": "Nutrient cycling links biotic and abiotic components", "status": "sketch", "metta_atom": null}, {"claim_id": "eco-claim-6", "text": "Competitive exclusion drives niche differentiation", "status": "candidate_atom", "metta_atom": "(--> competitive-exclusion niche-differentiation)"}, {"claim_id": "eco-claim-7", "text": "Succession follows directional community change after disturbance", "status": "candidate_atom", "metta_atom": "(--> ecological-succession directional-change)"}, {"claim_id": "eco-claim-8", "text": "All invasive species reduce native biodiversity", "status": "conjecture", "metta_atom": null}, {"claim_id": "eco-claim-9", "text": "Decomposers recycle organic matter into nutrients", "status": "full", "metta_atom": "(|- ((==> (--> $o decomposer) (--> $o nutrient-recycling)) (stv 1.0 0.9))"}, {"claim_id": "eco-claim-10", "text": "Island biogeography predicts species richness from area and isolation", "status": "full", "metta_atom": "(|- ((--> island-species-richness (and area-distance-factors)) (stv 0.9 0.85))"}, {"claim_id": "eco-claim-11", "text": "Mutualisms increase fitness of both partners", "status": "candidate_atom", "metta_atom": "(--> mutualism reciprocal-fitness-gain)"}, {"claim_id": "eco-claim-12", "text": "Trophic cascades propagate predator effects down food webs", "status": "full", "metta_atom": "(|- ((--> trophic-cascade top-down-propagation) (stv 0.9 0.9))"}, {"claim_id": "eco-claim-13", "text": "Every ecosystem recovers fully from disturbance given time", "status": "conjecture", "metta_atom": null}, {"claim_id": "eco-claim-14", "text": "Carrying capacity limits population growth", "status": "full", "metta_atom": "(|- ((==> (--> $pop near-carrying-capacity) (--> $pop growth-limited)) (stv 1.0 0.9))"}, {"claim_id": "eco-claim-15", "text": "Meta-population dynamics depend on patch connectivity", "status": "sketch", "metta_atom": null}]}
+{
+ "task_id": "eco-seed42-test",
+ "seed": 42,
+ "claims": [
+  {
+   "claim_id": "eco-claim-1",
+   "text": "Energy flows through food chains from producers to consumers",
+   "status": "full",
+   "metta_atom": "(|- ((==> (--> $chain food-chain) )) (stv 1.0 0.9))"
+  },
+  {
+   "claim_id": "eco-claim-2",
+   "text": "Predator-prey populations oscillate with lag",
+   "status": "full",
+   "metta_atom": "(|- ((--> predator-prey-system lagged-oscillation)) (stv 0.9 0.9))"
+  },
+  {
+   "claim_id": "eco-claim-3",
+   "text": "Keystone species disproportionately affect community structure",
+   "status": "full",
+   "metta_atom": "(|- ((==> (--> $s keystone-species) )) (stv 0.9 0.85))"
+  },
+  {
+   "claim_id": "eco-claim-4",
+   "text": "Species diversity tends to increase ecosystem stability",
+   "status": "sketch",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "eco-claim-5",
+   "text": "Nutrient cycling links biotic and abiotic components",
+   "status": "sketch",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "eco-claim-6",
+   "text": "Competitive exclusion drives niche differentiation",
+   "status": "candidate_atom",
+   "metta_atom": "(--> competitive-exclusion niche-differentiation)"
+  },
+  {
+   "claim_id": "eco-claim-7",
+   "text": "Succession follows directional community change after disturbance",
+   "status": "candidate_atom",
+   "metta_atom": "(--> ecological-succession directional-change)"
+  },
+  {
+   "claim_id": "eco-claim-8",
+   "text": "All invasive species reduce native biodiversity",
+   "status": "conjecture",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "eco-claim-9",
+   "text": "Decomposers recycle organic matter into nutrients",
+   "status": "full",
+   "metta_atom": "(|- ((==> (--> $o decomposer) )) (stv 1.0 0.9))"
+  },
+  {
+   "claim_id": "eco-claim-10",
+   "text": "Island biogeography predicts species richness from area and isolation",
+   "status": "full",
+   "metta_atom": "(|- ((--> island-species-richness )) (stv 0.9 0.85))"
+  },
+  {
+   "claim_id": "eco-claim-11",
+   "text": "Mutualisms increase fitness of both partners",
+   "status": "candidate_atom",
+   "metta_atom": "(--> mutualism reciprocal-fitness-gain)"
+  },
+  {
+   "claim_id": "eco-claim-12",
+   "text": "Trophic cascades propagate predator effects down food webs",
+   "status": "full",
+   "metta_atom": "(|- ((--> trophic-cascade top-down-propagation)) (stv 0.9 0.9))"
+  },
+  {
+   "claim_id": "eco-claim-13",
+   "text": "Every ecosystem recovers fully from disturbance given time",
+   "status": "conjecture",
+   "metta_atom": null
+  },
+  {
+   "claim_id": "eco-claim-14",
+   "text": "Carrying capacity limits population growth",
+   "status": "full",
+   "metta_atom": "(|- ((==> (--> $pop near-carrying-capacity) )) (stv 1.0 0.9))"
+  },
+  {
+   "claim_id": "eco-claim-15",
+   "text": "Meta-population dynamics depend on patch connectivity",
+   "status": "sketch",
+   "metta_atom": null
+  }
+ ]
+}
